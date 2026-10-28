@@ -2178,3 +2178,4 @@ body:has(.welcome-screen:not(.is-hidden)) {
 :focus-visible {
   outline-color: var(--gold);
 }
+

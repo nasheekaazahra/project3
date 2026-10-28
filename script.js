@@ -668,29 +668,31 @@ if (closePolaroidLetter && polaroidLetterModal) {
 }
 
 
+
 /* ==========================================
    FITUR OUR LOVE STORY
    ========================================== */
 (() => {
-  // Tambahkan tab navigasi
   if (!TABS.includes("cerita")) TABS.push("cerita");
 
-  const nav = document.querySelector(".nav");
+  // Tambahkan menu navigasi
+  const navElement = document.querySelector(".nav");
 
-  if (nav && !nav.querySelector('[data-tab="cerita"]')) {
+  if (navElement && !navElement.querySelector('[data-tab="cerita"]')) {
     const link = document.createElement("a");
     link.href = "#cerita";
     link.dataset.tab = "cerita";
     link.textContent = "Cerita Kita";
-    nav.appendChild(link);
 
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
       switchTab("cerita");
     });
+
+    navElement.appendChild(link);
   }
 
-  // Buat halaman cerita
+  // Buat halaman hanya jika belum tersedia
   if (document.getElementById("cerita")) return;
 
   const section = document.createElement("section");
@@ -702,32 +704,43 @@ if (closePolaroidLetter && polaroidLetterModal) {
       <div class="love-heading">
         <p>A LITTLE PIECE OF US</p>
         <h2>Our Love Story ♡</h2>
-        <span>Aku mau ayang tulis yang mau ayang curahkan buat aku dan hubungan kita</span>
+        <span>
+          Aku mau ayang tulis yang mau ayang curahkan
+          buat aku dan hubungan kita
+        </span>
       </div>
 
       <div class="love-grid">
+
+        <!-- CONTAINER FORM DI KIRI -->
         <form id="loveForm" class="love-form">
           <label for="loveTitle">Judul cerita</label>
-          <input id="loveTitle"
-            placeholder="Our Little Forever" maxlength="100">
+          <input
+            id="loveTitle"
+            placeholder="Our Little Forever"
+            maxlength="100"
+          >
 
           <label for="loveNames">Nama kalian</label>
-          <input id="loveNames"
-            placeholder="Rizqi & Chika" maxlength="100">
+          <input
+            id="loveNames"
+            placeholder="Rizqi & Chika"
+            maxlength="100"
+          >
 
           <label for="loveDate">Tanggal spesial</label>
           <input id="loveDate" type="date">
 
           <label for="loveText">Cerita tentang kita</label>
-          <textarea id="loveText" rows="9"
-            placeholder="Coba ayang tulis awal kita bertemu, kenangan favorit, hal yang kamu syukuri, dan harapan untuk masa depan..."></textarea>
+          <textarea
+            id="loveText"
+            rows="9"
+            placeholder="Coba ayang tulis awal kita bertemu, kenangan favorit, hal yang kamu syukuri, dan harapan untuk masa depan..."
+          ></textarea>
 
           <div class="love-buttons">
-            <button type="button" id="lovePrint">
-              Print / Simpan PDF
-            </button>
-            <button type="button" id="loveDownload">
-              Download TXT
+            <button type="button" id="loveImageDownload">
+              ♡ Download Surat PNG
             </button>
           </div>
 
@@ -737,337 +750,323 @@ if (closePolaroidLetter && polaroidLetterModal) {
           </p>
         </form>
 
+        <!-- CONTAINER PREVIEW DI KANAN -->
         <article id="lovePaper" class="love-paper">
-          <p class="love-eyebrow">OUR STORY, OUR MEMORIES</p>
+          <p class="love-eyebrow">
+            OUR STORY, OUR MEMORIES
+          </p>
+
           <h3 id="lovePreviewTitle">Our Little Forever</h3>
-          <p id="lovePreviewMeta">Cerita yang ditulis dengan cinta ♡</p>
+
+          <p id="lovePreviewMeta">
+            Cerita yang ditulis dengan cinta ♡
+          </p>
+
           <div id="lovePreviewText">Setiap hubungan punya cerita yang unik.
 
 Mulai tulis cerita kalian di kolom sebelah kiri,
 dan kata-katamu akan muncul di sini.</div>
         </article>
+
       </div>
     </div>
   `;
 
-  document.querySelector(".tab").parentElement.appendChild(section);
+  // Masukkan halaman ke area tab utama
+  const mainTab = document.querySelector(".tab");
+  const tabParent = mainTab
+    ? mainTab.parentElement
+    : document.body;
 
-  // Styling
+  tabParent.appendChild(section);
+
+  /* ==========================================
+     STYLING
+     ========================================== */
   const style = document.createElement("style");
+
   style.textContent = `
-    #cerita { padding: 35px 20px; }
-    .love-container { max-width: 1000px; margin: auto; }
-    .love-heading { text-align: center; margin-bottom: 30px; }
-    .love-heading > p, .love-eyebrow {
-      color: #c9a45c; letter-spacing: 3px; font-size: 11px;
+    #cerita {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 35px 20px;
     }
-    .love-heading h2 { color: #f5e7d0; margin: 10px 0; }
-    .love-heading span { color: #c8b8b8; font-size: 14px; }
-    .love-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 22px; align-items: start;
+
+    #cerita .love-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
     }
-    .love-form {
-      padding: 24px; border-radius: 16px;
-      background: #280a14; border: 1px solid #70402e;
+
+    #cerita .love-heading {
+      text-align: center;
+      margin-bottom: 30px;
     }
-    .love-form label {
-      display: block; color: #ead7c0;
-      margin: 0 0 8px; font-size: 14px;
+
+    #cerita .love-heading > p {
+      color: #c9a45c;
+      font-size: 9px;
+      letter-spacing: 4px;
     }
-    .love-form input, .love-form textarea {
-      box-sizing: border-box; width: 100%;
-      padding: 12px; margin-bottom: 18px;
-      border: 1px solid #70402e; border-radius: 9px;
-      background: #1b0a10; color: #fff4e8;
+
+    #cerita .love-heading h2 {
+      margin: 10px 0;
+      color: #f4e6d4;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(35px, 5vw, 48px);
+      font-weight: 500;
+    }
+
+    #cerita .love-heading span {
+      color: #d0bdbb;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* FORM KIRI DAN PREVIEW KANAN */
+    #cerita .love-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: start;
+      gap: 22px;
+      width: 100%;
+    }
+
+    /* FORM */
+    #cerita .love-form {
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 28px;
+      background: linear-gradient(145deg, #32101c, #210912);
+      border: 1px solid rgba(201, 164, 92, .38);
+      border-radius: 5px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, .14);
+    }
+
+    #cerita .love-form label {
+      display: block;
+      margin: 0 0 8px;
+      color: #ead9c3;
+      font-size: 12px;
+      letter-spacing: .4px;
+    }
+
+    #cerita .love-form input,
+    #cerita .love-form textarea {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 0 18px;
+      padding: 12px;
+      border: 1px solid rgba(201, 164, 92, .25);
+      border-radius: 3px;
+      background: rgba(15, 5, 10, .55);
+      color: #fff6ed;
       font: inherit;
+      font-size: 13px;
     }
-    .love-form textarea { resize: vertical; line-height: 1.8; }
-    .love-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
-    .love-buttons button {
-      padding: 11px 15px; border: 1px solid #c9a45c;
-      border-radius: 25px; background: #6c1833;
-      color: white; cursor: pointer;
+
+    #cerita .love-form textarea {
+      resize: vertical;
+      line-height: 1.8;
     }
-    .love-buttons button:hover { background: #8b2848; }
-    .love-note { color: #c8b8b8; font-size: 12px; line-height: 1.6; }
-    .love-paper {
-      box-sizing: border-box; padding: 30px;
-      min-height: 360px; border-radius: 16px;
-      background: #f7efe4; color: #38212a;
+
+    #cerita .love-form input:focus,
+    #cerita .love-form textarea:focus {
+      outline: none;
+      border-color: #c9a45c;
+      box-shadow: 0 0 0 3px rgba(201, 164, 92, .10);
+    }
+
+    #cerita .love-form input::placeholder,
+    #cerita .love-form textarea::placeholder {
+      color: #a89194;
+    }
+
+    #cerita .love-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    #cerita .love-buttons button {
+      padding: 11px 15px;
+      border: 1px solid #c9a45c;
+      border-radius: 2px;
+      background: #a89194;
+      color: white;
+      font-size: 11px;
+      letter-spacing: .3px;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+
+    #cerita .love-buttons button:hover {
+      background: #a17a;
+      transform: translateY(-2px);
+    }
+
+    #cerita .love-buttons button:disabled {
+      opacity: .65;
+      cursor: wait;
+      transform: none;
+    }
+
+    #cerita .love-note {
+      margin: 16px 0 0;
+      color: #bda7aa;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* PREVIEW SURAT */
+    #cerita .love-paper {
+      position: relative;
+      isolation: isolate;
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      min-height: 530px;
+      margin: 0;
+      padding: 52px 30px;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+
+      border: 1px solid #d9c4a3;
+      border-radius: 16px;
+      outline: 1px solid rgba(201, 164, 92, .45);
+      outline-offset: -9px;
+
+      background:
+        radial-gradient(
+          ellipse at top left,
+          rgba(201, 164, 92, .12),
+          transparent 38%
+        ),
+        radial-gradient(
+          ellipse at bottom right,
+          rgba(112, 35, 57, .07),
+          transparent 40%
+        ),
+        #fbf5eb;
+
+      color: #49343a;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .20);
+    }
+
+    #cerita .love-paper::before,
+    #cerita .love-paper::after {
+      position: absolute;
+      z-index: -1;
+      color: rgba(166, 126, 66, .20);
+      font-family: Georgia, serif;
+      font-size: 90px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    #cerita .love-paper::before {
+      content: "❧";
+      top: 9px;
+      left: 17px;
+      transform: rotate(-35deg);
+    }
+
+    #cerita .love-paper::after {
+      content: "❧";
+      right: 17px;
+      bottom: 9px;
+      transform: rotate(145deg);
+    }
+
+    #cerita .love-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #a0804b;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    #cerita .love-eyebrow::before,
+    #cerita .love-eyebrow::after {
+      content: "";
+      flex: 0 0 20px;
+      width: 20px;
+      height: 1px;
+      background: #c9a45c;
+    }
+
+    #cerita .love-paper h3 {
+      margin: 30px 0 14px;
+      color: #642039;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(28px, 3vw, 43px);
+      font-weight: 500;
+      line-height: 1.12;
+      text-align: center;
       overflow-wrap: anywhere;
     }
-    .love-paper h3 {
-      color: #642039; font: 28px Georgia, serif;
-      margin: 18px 0 10px;
-    }
-    #lovePreviewMeta { color: #8a6b68; font-size: 13px; }
-    #lovePreviewText { white-space: pre-wrap; line-height: 1.9; }
-    @media(max-width:700px) {
-      .love-grid { grid-template-columns: 1fr; }
-      .love-paper, .love-form { padding: 20px; }
-    }
-    
-@media print {
-  @page {
-    size: A4;
-    margin: 18mm;
-  }
 
-  body.love-print * {
-    visibility: hidden !important;
-  }
-
-  body.love-print #lovePaper,
-  body.love-print #lovePaper * {
-    visibility: visible !important;
-  }
-
-  body.love-print #lovePaper {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    min-height: 0;
-    padding: 35px 30px;
-    overflow: visible;
-    border: 1px solid #d9c4a3;
-    outline: 1px solid #d9c4a3;
-    outline-offset: -7px;
-    border-radius: 0;
-    box-shadow: none;
-    background: #fbf5eb !important;
-    color: #49343a !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  body.love-print #lovePaper h3 {
-    color: #642039 !important;
-  }
-
-  body.love-print #lovePreviewText {
-    color: #554047 !important;
-  }
-
-  body.love-print #fx,
-  body.love-print .nav,
-  body.love-print header,
-  body.love-print footer {
-    display: none !important;
-  }
-}
-
-      body.love-print #lovePaper h3 { color: #642039 !important; }
-      body.love-print #fx,
-      body.love-print .nav,
-      body.love-print header,
-      body.love-print footer { display: none !important; }
+    #cerita #lovePreviewMeta {
+      margin: 0 0 27px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid #e4d3bb;
+      color: #967b70;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: 1px;
+      line-height: 1.8;
+      text-align: center;
     }
 
-    
-/* ===== AESTHETIC LOVE LETTER ===== */
+    #cerita #lovePreviewText {
+      color: #554047;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 19px;
+      line-height: 1.95;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
 
-.love-paper {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  box-sizing: border-box;
-  min-height: 530px;
-  padding: 52px 42px;
-  border: 1px solid #d9c4a3;
-  border-radius: 3px;
-  outline: 1px solid rgba(201, 164, 92, .45);
-  outline-offset: -9px;
+    /* TAMPILAN HP */
+    @media (max-width: 700px) {
+      #cerita {
+        padding: 25px 14px;
+      }
 
-  background:
-    radial-gradient(ellipse at top left,
-      rgba(201,164,92,.12), transparent 38%),
-    radial-gradient(ellipse at bottom right,
-      rgba(112,35,57,.07), transparent 40%),
-    #fbf5eb;
+      #cerita .love-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+      }
 
-  color: #49343a;
-  box-shadow: 0 18px 45px rgba(0,0,0,.20);
-}
+      #cerita .love-form {
+        padding: 22px;
+      }
 
-/* Ornamen sudut */
-.love-paper::before,
-.love-paper::after {
-  position: absolute;
-  z-index: -1;
-  color: rgba(166, 126, 66, .20);
-  font-family: Georgia, serif;
-  font-size: 90px;
-  line-height: 1;
-  pointer-events: none;
-}
+      #cerita .love-paper {
+        min-height: 400px;
+        padding: 38px 26px;
+      }
 
-.love-paper::before {
-  content: "❧";
-  top: 9px;
-  left: 17px;
-  transform: rotate(-35deg);
-}
-
-.love-paper::after {
-  content: "❧";
-  right: 17px;
-  bottom: 9px;
-  transform: rotate(145deg);
-}
-
-.love-eyebrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  color: #a0804b;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-align: center;
-}
-
-.love-eyebrow::before,
-.love-eyebrow::after {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: #c9a45c;
-}
-
-.love-paper h3 {
-  margin: 30px 0 14px;
-  color: #642039;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(30px, 4vw, 43px);
-  font-weight: 500;
-  line-height: 1.12;
-  text-align: center;
-  overflow-wrap: anywhere;
-}
-
-#lovePreviewMeta {
-  margin: 0 0 27px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid #e4d3bb;
-  color: #967b70;
-  font-family: "Inter", sans-serif;
-  font-size: 10px;
-  letter-spacing: 1px;
-  line-height: 1.8;
-  text-align: center;
-}
-
-#lovePreviewText {
-  color: #554047;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 19px;
-  line-height: 1.95;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
-#lovePreviewText::first-letter {
-  color: #8d3b51;
-}
-
-.love-heading h2 {
-  color: #f4e6d4;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(35px, 5vw, 48px);
-  font-weight: 500;
-  letter-spacing: .5px;
-}
-
-.love-heading > p {
-  font-size: 9px;
-  letter-spacing: 4px;
-}
-
-.love-heading span {
-  color: #d0bdbb;
-  line-height: 1.8;
-}
-
-.love-form {
-  background: linear-gradient(145deg, #32101c, #210912);
-  border: 1px solid rgba(201,164,92,.38);
-  border-radius: 5px;
-  padding: 28px;
-  box-shadow: 0 15px 40px rgba(0,0,0,.14);
-}
-
-.love-form label {
-  color: #ead9c3;
-  font-size: 12px;
-  letter-spacing: .4px;
-}
-
-.love-form input,
-.love-form textarea {
-  border: 1px solid rgba(201,164,92,.25);
-  border-radius: 3px;
-  background: rgba(15,5,10,.55);
-  color: #fff6ed;
-  font-size: 13px;
-  transition: border-color .25s, box-shadow .25s;
-}
-
-.love-form input:focus,
-.love-form textarea:focus {
-  outline: none;
-  border-color: #c9a45c;
-  box-shadow: 0 0 0 3px rgba(201,164,92,.10);
-}
-
-.love-form input::placeholder,
-.love-form textarea::placeholder {
-  color: #a89194;
-}
-
-.love-buttons button {
-  border: 1px solid #b89557;
-  border-radius: 2px;
-  background: #70233b;
-  font-size: 11px;
-  letter-spacing: .3px;
-  transition: .25s ease;
-}
-
-.love-buttons button:hover {
-  background: #8d3852;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0,0,0,.15);
-}
-
-.love-note {
-  margin-top: 16px;
-  color: #bda7aa;
-  line-height: 1.8;
-}
-
-@media(max-width: 700px) {
-  .love-paper {
-    min-height: 400px;
-    padding: 38px 28px;
-  }
-
-  #lovePreviewText {
-    font-size: 17px;
-  }
-
-  .love-form {
-    padding: 22px;
-  }
-}
-
+      #cerita #lovePreviewText {
+        font-size: 17px;
+      }
+    }
   `;
+
   document.head.appendChild(style);
 
-  // Ambil elemen input
+  /* ==========================================
+     INPUT DAN PREVIEW OTOMATIS
+     ========================================== */
   const title = document.getElementById("loveTitle");
   const names = document.getElementById("loveNames");
   const date = document.getElementById("loveDate");
@@ -1077,11 +1076,13 @@ dan kata-katamu akan muncul di sini.</div>
   const previewMeta = document.getElementById("lovePreviewMeta");
   const previewText = document.getElementById("lovePreviewText");
 
-  // Ambil tulisan yang tersimpan
   const storageKey = "anniv.loveStory";
 
   try {
-    const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    const saved = JSON.parse(
+      localStorage.getItem(storageKey) || "{}"
+    );
+
     title.value = saved.title || "";
     names.value = saved.names || "";
     date.value = saved.date || "";
@@ -1095,28 +1096,36 @@ dan kata-katamu akan muncul di sini.</div>
       title.value.trim() || "Our Little Forever";
 
     const formattedDate = date.value
-      ? new Date(date.value + "T00:00:00")
-          .toLocaleDateString("id-ID", {
-            day: "numeric", month: "long", year: "numeric"
-          })
+      ? new Date(date.value + "T00:00:00").toLocaleDateString(
+          "id-ID",
+          {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          }
+        )
       : "";
 
     previewMeta.textContent =
-      [names.value.trim(), formattedDate].filter(Boolean).join(" • ")
-      || "Cerita yang ditulis dengan cinta ♡";
+      [names.value.trim(), formattedDate]
+        .filter(Boolean)
+        .join(" • ") || "Cerita yang ditulis dengan cinta ♡";
 
-    previewText.textContent = story.value.trim()
-      || "Coba tulis cerita kita di sini ♡";
+    previewText.textContent =
+      story.value.trim() || "Coba tulis cerita kita di sini ♡";
 
     try {
-      localStorage.setItem(storageKey, JSON.stringify({
-        title: title.value,
-        names: names.value,
-        date: date.value,
-        story: story.value
-      }));
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify({
+          title: title.value,
+          names: names.value,
+          date: date.value,
+          story: story.value
+        })
+      );
     } catch (error) {
-      // Tetap bisa digunakan jika penyimpanan browser tidak tersedia.
+      // Preview tetap berfungsi jika penyimpanan gagal.
     }
   }
 
@@ -1125,47 +1134,91 @@ dan kata-katamu akan muncul di sini.</div>
     input.addEventListener("change", updatePreview);
   });
 
-  // Print atau simpan PDF
-  document.getElementById("lovePrint").addEventListener("click", () => {
-    updatePreview();
-    document.body.classList.add("love-print");
+  /* ==========================================
+     DOWNLOAD SURAT PNG
+     ========================================== */
+  document
+    .getElementById("loveImageDownload")
+    .addEventListener("click", async () => {
+      updatePreview();
 
-    window.print();
+      const paper = document.getElementById("lovePaper");
+      const button = document.getElementById("loveImageDownload");
 
-    const cleanup = () =>
-      document.body.classList.remove("love-print");
+      if (typeof html2canvas === "undefined") {
+        alert(
+          "Fitur gambar belum termuat. Periksa koneksi internet lalu coba lagi."
+        );
+        return;
+      }
 
-    window.addEventListener("afterprint", cleanup, { once: true });
-    setTimeout(cleanup, 3000);
-  });
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "Sedang membuat gambar...";
 
-  // Download tulisan sebagai TXT
-  document.getElementById("loveDownload").addEventListener("click", () => {
-    updatePreview();
+      try {
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
 
-    const content =
-      `${title.value.trim() || "Our Little Forever"}\n` +
-      `${names.value.trim()}\n${date.value}\n\n` +
-      `${story.value}\n`;
+        const canvas = await html2canvas(paper, {
+          scale: 2,
+          backgroundColor: "#fbf5eb",
+          useCORS: true,
+          logging: false,
+          width: paper.scrollWidth,
+          height: paper.scrollHeight,
+          windowWidth: Math.max(
+            document.documentElement.clientWidth,
+            paper.scrollWidth
+          ),
+          onclone: clonedDocument => {
+            const clonedPaper =
+              clonedDocument.getElementById("lovePaper");
 
-    const blob = new Blob([content], {
-      type: "text/plain;charset=utf-8"
+            if (clonedPaper) {
+              clonedPaper.style.height = "auto";
+              clonedPaper.style.maxHeight = "none";
+              clonedPaper.style.overflow = "visible";
+              clonedPaper.style.minHeight = "0";
+            }
+          }
+        });
+
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob(result => {
+            if (result) resolve(result);
+            else reject(new Error("Gagal membuat file gambar."));
+          }, "image/png");
+        });
+
+        const fileName = (
+          previewTitle.textContent.trim() || "Our-Love-Story"
+        )
+          .replace(/[\\/:*?"<>|]+/g, "-")
+          .replace(/\s+/g, "-");
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = fileName + ".png";
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => URL.revokeObjectURL(url), 3000);
+      } catch (error) {
+        console.error("Gagal membuat gambar surat:", error);
+        alert(
+          "Maaf, surat belum bisa dijadikan gambar. Silakan coba lagi."
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
     });
-
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download =
-      (title.value.trim() || "our-love-story")
-        .replace(/[\\/:*?"<>|]+/g, "-") + ".txt";
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
 
   updatePreview();
 })();

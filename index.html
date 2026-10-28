@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Anniversary, My Love</title>
+  <meta name="theme-color" content="#070406">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Welcome Screen -->
+  
+  <div id="welcomeScreen" class="welcome-screen">
+    <div class="welcome-card">
+      <span class="welcome-heart">♡</span>
+      <p>A LITTLE UNIVERSE MADE FOR US</p>
+      <h1>For You, My Love</h1>
+      <span class="welcome-subtitle">
+        A little place filled with our memories.
+      </span>
+      <button id="enterWebsite" type="button">
+        Enter Our Universe ♡
+      </button>
+    </div>
+  </div>
+
+  <!-- Definisi bunga lily  -->
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="gPetal" cx="50%" cy="85%" r="95%">
+        <stop offset="0%" stop-color="#1a0207"/>
+        <stop offset="45%" stop-color="#5a0a1f"/>
+        <stop offset="100%" stop-color="#a3213f"/>
+      </radialGradient>
+      <radialGradient id="gPetalBack" cx="50%" cy="85%" r="95%">
+        <stop offset="0%" stop-color="#0d0104"/>
+        <stop offset="60%" stop-color="#3a0613"/>
+        <stop offset="100%" stop-color="#6e0f26"/>
+      </radialGradient>
+      <linearGradient id="gStem" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#4a0a1c"/>
+        <stop offset="100%" stop-color="#c9a45c"/>
+      </linearGradient>
+
+      <symbol id="lily" viewBox="0 0 100 100">
+        <g stroke="#1a0207" stroke-width="0.6" stroke-linejoin="round">
+          <path d="M50 58 C 22 52 6 34 4 16 C 26 20 42 34 50 58Z" fill="url(#gPetalBack)"/>
+          <path d="M50 58 C 78 52 94 34 96 16 C 74 20 58 34 50 58Z" fill="url(#gPetalBack)"/>
+          <path d="M50 60 C 30 76 14 78 6 70 C 18 58 34 54 50 60Z" fill="url(#gPetalBack)"/>
+          <path d="M50 60 C 70 76 86 78 94 70 C 82 58 66 54 50 60Z" fill="url(#gPetalBack)"/>
+          <path d="M50 60 C 34 38 34 14 50 2 C 66 14 66 38 50 60Z" fill="url(#gPetal)"/>
+          <path d="M50 60 C 38 44 20 36 12 34 C 20 50 34 58 50 60Z" fill="url(#gPetal)" opacity=".9"/>
+          <path d="M50 60 C 62 44 80 36 88 34 C 80 50 66 58 50 60Z" fill="url(#gPetal)" opacity=".9"/>
+        </g>
+        <path d="M50 58 C 50 40 50 24 50 10" stroke="#e9c4c8" stroke-opacity=".18" stroke-width=".8" fill="none"/>
+        <g fill="#0d0104" opacity=".55">
+          <circle cx="46" cy="44" r=".9"/><circle cx="54" cy="42" r=".9"/><circle cx="50" cy="36" r=".8"/>
+          <circle cx="44" cy="52" r=".8"/><circle cx="56" cy="51" r=".8"/>
+        </g>
+        <g fill="none" stroke="url(#gStem)" stroke-width="1.3" stroke-linecap="round">
+          <path d="M50 60 Q44 40 36 24"/><path d="M50 60 Q50 38 50 20"/><path d="M50 60 Q56 40 64 24"/>
+        </g>
+        <g fill="#c9a45c">
+          <ellipse cx="35" cy="22.5" rx="3" ry="1.4" transform="rotate(-30 35 22.5)"/>
+          <ellipse cx="50" cy="18.5" rx="3" ry="1.4" transform="rotate(90 50 18.5)"/>
+          <ellipse cx="65" cy="22.5" rx="3" ry="1.4" transform="rotate(30 65 22.5)"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- NAVIGASI -->
+  <header class="topbar">
+    <a class="brand" href="#beranda" data-tab="beranda" aria-label="Kembali ke beranda">
+      <svg class="icon-lily" aria-hidden="true"><use href="#lily"/></svg>
+      <span>3rd Anniversary</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Menu utama">
+      <a href="#beranda" data-tab="beranda">Beranda</a>
+      <a href="#surat" data-tab="surat">Surat</a>
+      <a href="#video" data-tab="video">Galeri</a>
+      <a href="#perjalanan" data-tab="perjalanan">Perjalanan</a>
+      <a href="#tebak" data-tab="tebak">Ayok Tebak</a>
+      <a href="#jupiter" data-tab="jupiter" class="jupiter-nav">✦ Jupiter</a>
+    </nav>
+
+    <div class="tools">
+      <button class="icon-btn" id="musicBtn" type="button" aria-label="Putar musik" aria-pressed="false">
+        <svg viewBox="0 0 24 24" class="i-play" aria-hidden="true"><path d="M9 18V6l10-2v12M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3Zm10-2a3 3 0 1 1-3-3 3 3 0 0 1 3 3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" class="i-pause" aria-hidden="true"><path d="M8 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Buka menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== BERANDA ========== -->
+    <section id="beranda" class="tab is-active" aria-label="Beranda">
+      <div class="hero">
+        <svg class="hero-lily" aria-hidden="true"><use href="#lily"/></svg>
+
+        <p class="names" id="coupleNames">Rizqi Chika</p>
+        <h1 class="script-title">Happy Anniversary,<br>My Love</h1>
+        <p class="quote">“I love you not only for what you are, but for what I am when I am with you.”</p>
+
+        <div class="counter" aria-label="Lama kebersamaan">
+          <div class="counter-head">
+            <h2 id="counterTitle">Sudah berapa lama kita bersama</h2>
+            <button class="link-btn" id="editDateBtn" type="button">Ubah tanggal</button>
+          </div>
+          <div class="counter-grid" role="timer" aria-live="off">
+            <div class="cell"><b id="cDays">0</b><span>hari</span></div>
+            <div class="cell"><b id="cHours">00</b><span>jam</span></div>
+            <div class="cell"><b id="cMinutes">00</b><span>menit</span></div>
+            <div class="cell"><b id="cSeconds">00</b><span>detik</span></div>
+          </div>
+          <p class="since" id="sinceText"></p>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" type="button" data-go="surat">Buka surat</button>
+          <button class="btn btn-ghost" type="button" data-go="video">Lihat video</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SURAT ========== -->
+    <section id="surat" class="tab" aria-label="Surat cinta">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2 class="script-title sm">Untuk, Ayang</h2>
+          <p class="muted" id="letterHint">Klik amplopnya, sayang</p>
+        </header>
+
+        <div class="envelope-wrap" id="envelopeWrap">
+          <button class="envelope" id="envelope" type="button" aria-label="Buka surat">
+            <span class="seal"><svg aria-hidden="true"><use href="#lily"/></svg></span>
+            <span class="env-text">Klik di sini</span>
+            <span class="env-sub">Dibaca ya, ganteng</span>
+          </button>
+
+          <article class="letter" id="letter" hidden>
+            <p class="letter-greet" id="letterGreet">Teruntuk Sayangku,</p>
+            <div class="letter-body" id="letterBody" aria-live="polite"></div>
+            <div class="letter-sign">
+              <span class="script-sign">I Love You,</span>
+              <span class="muted">ALWAYS</span>
+            </div>
+            <button class="link-btn skip" id="skipTyping" type="button" hidden>Tampilkan semua</button>
+          </article>
+        </div>
+
+        <div class="presets" role="group" aria-label="Pilih nuansa pesan">
+          <button type="button" class="chip is-on" data-preset="0">1</button>
+          <button type="button" class="chip" data-preset="1">2</button>
+          <button type="button" class="chip" data-preset="2">3</button>
+          <button type="button" class="chip" data-preset="3">4</button>
+          <button type="button" class="chip" data-preset="4">5</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== VIDEO ========== -->
+    <section id="video" class="tab" aria-label="Video dan album">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="serif-title">Our Memories</h2>
+          <p class="muted">Ayo kita inget2 lagi kenangan kita</p>
+        </header>
+
+        <div class="player-card">
+          <div class="player-top">
+            <h3 id="videoTitle">Video spesial kita</h3>
+            <button class="link-btn" id="videoBtn" type="button">Ganti video</button>
+          </div>
+
+          <div class="player">
+            <iframe id="ytPlayer" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen hidden></iframe>
+            <video id="localPlayer" controls playsinline hidden></video>
+
+            <div class="player-empty" id="playerEmpty">
+              <svg aria-hidden="true"><use href="#lily"/></svg>
+              <h4>Belum ada video</h4>
+              <p>Tambahkan link YouTube atau pilih file video dari perangkatmu.</p>
+              <button class="btn btn-primary" type="button" id="videoBtn2">Tambah video</button>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="album-title">Our Album 2023-2026</h3>
+        <div class="album" id="album"></div>
+
+        
+        <!-- ========== OUR LITTLE MOMENTS / POLAROID ========== -->
+        <section class="polaroid-section" aria-label="Our Little Moments">
+
+          <header class="polaroid-heading">
+            <span class="polaroid-eyebrow">A little piece of us ♡</span>
+            <h3 class="album-title">Our Little Moments</h3>
+            <p class="muted">
+              Little memories, endless love. Every moment with you is special.
+            </p>
+          </header>
+
+          <div class="polaroid-gallery">
+
+            <!-- FOTO 1 -->
+            <figure class="polaroid-card">
+              <div class="polaroid-photo">
+                <img src="assets/date.jpg" alt="Our first date" loading="lazy">
+                <span class="polaroid-heart" aria-hidden="true">♥</span>
+              </div>
+
+              <figcaption class="polaroid-caption">
+                <h4>Our First Date</h4>
+                <span class="polaroid-date">a memory to keep forever</span>
+
+                <button
+                  class="polaroid-envelope-btn"
+                  type="button"
+                  data-letter-target="polaroid-letter-1"
+                  data-letter-title="Our First Date ♡"
+                  aria-label="Buka surat tentang foto pertama kita"
+                >✉ <span>read my letter</span></button>
+              </figcaption>
+            </figure>
+
+            <!-- FOTO 2 -->
+            <figure class="polaroid-card">
+              <div class="polaroid-photo">
+                <img src="assets/bunga.jpg" alt="My first flower from you" loading="lazy">
+                <span class="polaroid-heart" aria-hidden="true">♥</span>
+              </div>
+
+              <figcaption class="polaroid-caption">
+                <h4>My First Flower</h4>
+                <span class="polaroid-date">my heart remembers</span>
+
+                <button
+                  class="polaroid-envelope-btn"
+                  type="button"
+                  data-letter-target="polaroid-letter-2"
+                  data-letter-title="My First Flower 🌷"
+                  aria-label="Buka surat tentang bunga pertama"
+                >✉ <span>read my letter</span></button>
+              </figcaption>
+            </figure>
+
+            <!-- FOTO 3 -->
+            <figure class="polaroid-card">
+              <div class="polaroid-photo">
+                <img src="assets/lari.jpg" alt="A fun day together" loading="lazy">
+                <span class="polaroid-heart" aria-hidden="true">♥</span>
+              </div>
+
+              <figcaption class="polaroid-caption">
+                <h4>Just Us Being Us</h4>
+                <span class="polaroid-date">my favorite kind of day</span>
+
+                <button
+                  class="polaroid-envelope-btn"
+                  type="button"
+                  data-letter-target="polaroid-letter-3"
+                  data-letter-title="Just Us Being Us ♡"
+                  aria-label="Buka surat tentang kenangan kita"
+                >✉ <span>read my letter</span></button>
+              </figcaption>
+            </figure>
+
+            <!-- FOTO 4 -->
+            <figure class="polaroid-card">
+              <div class="polaroid-photo">
+                <img src="assets/masker.jpg" alt="A fun day together" loading="lazy">
+                <span class="polaroid-heart" aria-hidden="true">♥</span>
+              </div>
+
+              <figcaption class="polaroid-caption">
+                <h4>Little Moment</h4>
+                <span class="polaroid-date">still remember</span>
+
+                <button
+                  class="polaroid-envelope-btn"
+                  type="button"
+                  data-letter-target="polaroid-letter-4"
+                  data-letter-title="Little Moment ♡"
+                  aria-label="Buka surat tentang kenangan kita"
+                >✉ <span>read my letter</span></button>
+              </figcaption>
+            </figure>
+
+            <!-- FOTO 5 -->
+            <figure class="polaroid-card">
+              <div class="polaroid-photo">
+                <img src="assets/poto.jpg" alt="A fun day together" loading="lazy">
+                <span class="polaroid-heart" aria-hidden="true">♥</span>
+              </div>
+
+              <figcaption class="polaroid-caption">
+                <h4>What I Like</h4>
+                <span class="polaroid-date">about our relationship</span>
+
+                <button
+                  class="polaroid-envelope-btn"
+                  type="button"
+                  data-letter-target="polaroid-letter-5"
+                  data-letter-title="What I Like About Our Relationship ♡"
+                  aria-label="Buka surat tentang kenangan kita"
+                >✉ <span>read my letter</span></button>
+              </figcaption>
+            </figure>
+
+              <!-- FOTO 6 -->
+              <figure class="polaroid-card">
+              <div class="polaroid-photo">
+                <img src="assets/sidang.jpg" alt="My first flower from you" loading="lazy">
+                <span class="polaroid-heart" aria-hidden="true">♥</span>
+              </div>
+
+              <figcaption class="polaroid-caption">
+                <h4>Our Dreams</h4>
+                <span class="polaroid-date">Let's make them come true</span>
+
+                <button
+                  class="polaroid-envelope-btn"
+                  type="button"
+                  data-letter-target="polaroid-letter-6"
+                  data-letter-title="Our Dreams ♡"
+                  aria-label="Buka surat tentang impian kita"
+                >✉ <span>read my letter</span></button>
+              </figcaption>
+            </figure>
+
+          </div>
+
+          <!-- SURAT TERSEMBUNYI UNTUK FOTO 1 -->
+          <div hidden id="polaroid-letter-1">
+          Inget gaa ayang. Ini foto pertama kita setelah kita official pacaran.
+
+          Pembahasan kita waktu itu ngelanjutin pembahasan kita pas dichat, yaitu kita pacaran mau public atau backstreet. Aku waktu itu pengen backstreet sedangkan ayang pengen public. ♡
+
+          Kalau diingat-ingat sekarang, lucu banget ya perjalanan kita. Aku senang punya kenangan ini sama kamu. Semoga kita bisa terus bikin banyak kenangan indah lainnya, sayang.
+          </div>
+
+          <!-- SURAT TERSEMBUNYI UNTUK FOTO 2 -->
+          <div hidden id="polaroid-letter-2">
+          You gave me more than a flower.
+
+          You gave me a little moment that I'll always remember with the biggest smile, sayangg 🌷
+
+          Buat aku, yang bikin bunga itu spesial bukan cuma bunganya, tapi orang yang ngasih dan disaat yang tidak aku duga.
+
+          Thank you for making me feel loved in your own ways. I love you, sayang. ♡
+          </div>
+
+          <!-- SURAT TERSEMBUNYI UNTUK FOTO 3 -->
+          <div hidden id="polaroid-letter-3">
+          Every little adventure becomes more fun with you.
+
+          Thank you for letting me be part of your world, sayang. Aku suka banget kalo ayang selalu libatin aku dalam setiap hal yang ayang lakuin. 
+          Aku seneng banget bisa nemenin ayang kemana-mana, walaupun cuma jalan-jalan santai atau sekedar makan bareng.
+
+          I hope we get to experience so many more adventures together. Wherever life takes us, I hope we keep choosing each other. ♡
+          </div>
+
+          <!-- SURAT TERSEMBUNYI UNTUK FOTO 4 -->
+          <div hidden id="polaroid-letter-4">
+          Every little moment with you is a treasure.
+
+          I love how we can find joy in the simplest things, like wearing matching masks or sharing a laugh over a silly joke. These little moments are what make our relationship so special.
+
+          Mungkin ayang ga percaya tapi aku bisa ingat even the tiniest details of our time together. Aku seneng banget bisa ngabisin waktu sama ayang, walaupun cuma hal-hal kecil. ♡
+          </div>
+
+          <!-- SURAT TERSEMBUNYI UNTUK FOTO 5 -->
+          <div hidden id="polaroid-letter-5">
+          Aku bersyukur bisa ada dihubungan yang saling support, saling mengingatkan, dan saling memahami. Aku bersyukur bisa punya pasangan yang selalu ada buat aku, sayang.
+
+          Gimana cara kamu memimpin hubungan kita, cara kamu ngadepin masalah, cara kamu ngasih support, cara kamu ngasih perhatian, cara kamu ngasih kasih sayang, dan cara kamu bikin aku nyaman. Semua itu bikin aku makin yakin kalo aku sudah berada di hubungan yang tepat dan orang yang tepat.
+
+          Mungkin kalo kamu pacaran sama cewe lain mereka bakal menganggap kalo dia ada di hubungan yang ga sehat. Tapi aku ga pernah ngerasa gitu, sayang. Aku ngerasa kita ada di hubungan yang sehat karena semua yang kita ributin ga pernah karena hal sepele. pun walaupun hal sepele itu juga karena kita ga ngerti satu sama lain dan ada akibatnya.
+          
+          </div>
+
+          <!-- SURAT TERSEMBUNYI UNTUK FOTO 6 -->
+          <div hidden id="polaroid-letter-6"> 
+          Aku masih inget cita-cita aku, kamu, dan kita :
+          1. Ayang mau umrah in mama ayang dulu
+          2. Ayang mau ajak umi dan keluarga jalan-jalan
+          3. Nabung (Mobil, rumah, dll)
+          4. Yang paling mulia. ayang mau bikin pesantren atau sekolah🥹 
+          5. Aku mau bantu dan bahagiain mama dan adek2 sampe selsai pendidikan mereka
+          6. Aku mau nabung dan bantu ayang buat masa depan kita
+          7. Mau punya kerjaan remot dan bisnis sendiri
+          8. KITA NIKAH 
+
+          Bismillah kita haruskan semua cita2 kita tercapai yaa sayang. Aku yakin kita bisa, karna banyak orang yang sayang sama kita dan harus kita bahagiakan juga🩷
+          </div>
+
+          <p class="polaroid-footer">
+            <span aria-hidden="true">✦</span>
+            If I could keep one thing forever, it would be us.
+            <span aria-hidden="true">✦</span>
+          </p>
+
+        </section>
+
+      </div>
+    </section>
+
+    <!-- ========== PERJALANAN ========== -->
+    <section id="perjalanan" class="tab" aria-label="Perjalanan kita">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2 class="serif-title">Perjalanan Kita</h2>
+          <p class="muted">Setiap detik yang kita lewati bersama.</p>
+        </header>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+    </section>
+
+    <!-- ========== TEBAK ========== -->
+    <section id="tebak" class="tab" aria-label="Kuis cinta">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2 class="serif-title">Ayok Tebak</h2>
+          <p class="muted">Jawab tiga pertanyaan Ini.</p>
+        </header>
+
+        <div class="quiz-card" id="quizCard">
+          <div class="quiz-top">
+            <span id="quizProgress">Pertanyaan 1 dari 3</span>
+            <div class="bar"><i id="quizBar"></i></div>
+          </div>
+          <div id="quizStage">
+            <h3 id="quizQuestion"></h3>
+            <div class="options" id="quizOptions"></div>
+            <p class="feedback" id="quizFeedback" aria-live="polite"></p>
+          </div>
+
+          <div class="reward" id="reward" hidden>
+            <svg aria-hidden="true"><use href="#lily"/></svg>
+            <h3 class="script-title sm">Yey!!</h3>
+            <p>Coba ss hasil jawaban ayang terus kirim ke WA</p>
+            <button class="btn btn-primary" type="button" id="surpriseBtn">Hasil Jawaban</button>
+            <button class="link-btn" type="button" id="quizRestart">Main lagi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+<!-- ========== JUPITER LOVE STORY ========== -->
+    <section id="jupiter" class="tab jupiter-page" aria-label="Our Jupiter">
+
+      <div class="jupiter-stars" aria-hidden="true"></div>
+
+      <div class="jupiter-hero">
+        <p class="jupiter-eyebrow">A LITTLE UNIVERSE MADE FOR US</p>
+
+        <h2>
+          You Know Why I Choose
+          <span>Jupiter</span>
+          As Your Segel?
+        </h2>
+
+        <p class="jupiter-subtitle">
+          Among billions of stars, there's a reason I chose this one for you.
+        </p>
+
+        <a href="#jupiter-story" class="jupiter-scroll">
+          DISCOVER OUR LITTLE UNIVERSE
+          <span>↓</span>
+        </a>
+
+        <div class="jupiter-planet-wrap">
+          <div class="jupiter-orbit orbit-one"></div>
+          <div class="jupiter-orbit orbit-two"></div>
+
+          <img
+            class="jupiter-planet"
+            src="assets/jupiter.png"
+            alt="Jupiter glowing beautifully in space"
+          >
+
+          <span class="jupiter-moon moon-one"></span>
+          <span class="jupiter-moon moon-two"></span>
+        </div>
+
+        <p class="jupiter-caption">
+          A little planet, a million reasons to love you ♡
+        </p>
+      </div>
+
+      
+      <div class="jupiter-story" id="jupiter-story">
+
+        <!-- HEADER -->
+        <header class="cosmic-heading">
+          <p class="cosmic-eyebrow">A LITTLE THOUGHT ABOUT US · 01</p>
+          <h3>My Reason</h3>
+          <p class="cosmic-quote">
+            “Some things protect us without asking to be noticed.”
+          </p>
+        </header>
+
+        <!-- JUPITER IMAGE -->
+        <div class="cosmic-image">
+          <img
+            src="assets/bumi.png"
+            alt="Jupiter surrounded by stars"
+            loading="lazy"
+          >
+          <span class="cosmic-image-caption">
+            JUPITER · OUR LITTLE UNIVERSE
+          </span>
+        </div>
+
+        <!-- EXPLANATION -->
+        <div class="cosmic-content">
+
+          <!-- PART 01 -->
+          <article class="cosmic-section">
+            <div class="cosmic-section-heading">
+              <span class="cosmic-icon" aria-hidden="true">✧</span>
+              <div>
+                <span class="cosmic-kicker">01 — THE GRAVITY</span>
+                <h4>A Quiet Influence</h4>
+              </div>
+            </div>
+
+            <p>
+              Jupiter memiliki gravitasi yang sangat kuat karena ukurannya
+              yang besar. Gravitasi ini dapat memengaruhi lintasan sejumlah
+              asteroid dan komet, bahkan mengubah arah pergerakannya.
+            </p>
+
+            <p>
+              Pengaruh Jupiter tidak selalu berarti melindungi Bumi dari
+              bahaya. Dalam kondisi tertentu, gravitasinya dapat mengarahkan
+              benda langit menjauh, tetapi pada kondisi lain justru bisa
+              mengubah lintasannya menuju wilayah tata surya bagian dalam.
+              Apa pun itu, Jupiter tetap menjadi bagian penting dari dinamika
+              tata surya yang kita tinggali.
+            </p>
+
+            <p>
+              Bahkan dibeberapa kasus, gravitasi Jupiter dapat menarik asteroid 
+              yang awalnya mengarah ke Bumi, sehingga mencegah potensi tabrakan, 
+              dan justru mengarah ke diri nya sendiri untuk melindungui bumi
+            </p>
+          </article>
+
+          <div class="cosmic-separator">
+            <span>✦</span>
+          </div>
+
+          <!-- PART 02 -->
+          <article class="cosmic-section">
+            <div class="cosmic-section-heading">
+              <span class="cosmic-icon" aria-hidden="true">✧</span>
+              <div>
+                <span class="cosmic-kicker">02 — THE MEANING</span>
+                <h4>What You Mean to Me</h4>
+              </div>
+            </div>
+
+            <p>
+              Seperti kamu, Sayang. Kamu tidak harus selalu melakukan sesuatu
+              yang besar untuk membuat hidupku terasa lebih tenang.
+              Terkadang, cukup dengan kehadiranmu, perhatian kecilmu,
+              dan caramu membuat aku merasa tidak sendirian.
+            </p>
+
+            <p>
+              Kamu mungkin tidak bisa menjauhkan aku dari semua masalah,
+              tetapi kamu membuat aku merasa punya seseorang untuk berbagi
+              cerita, menghadapi hari-hari sulit, dan tumbuh bersama.
+              Dan buat aku, itu sudah sangat berarti.
+            </p>
+
+            <p>
+              Dan dengan ada nya kamu disetiap keadaan aku selalu merasa bahwa
+              aku tidak sendirian. Aku selalu merasa ada yang kamu yang bisa melindungi aku dari segi apapun
+            </p>
+          </article>
+
+        </div>
+
+        <!-- ROMANTIC HIGHLIGHT -->
+        <aside class="cosmic-highlight">
+          <span class="cosmic-highlight-label">
+            Indah kan ayang?
+          </span>
+
+          <h4>Thank You For Being My Jupiter, My Love</h4>
+
+          <p>
+            Aku tidak membutuhkan seseorang yang bisa menjauhkan semua badai.
+            Aku hanya ingin seseorang yang tetap ingin berjalan bersamaku
+            saat badai itu datang. Seseorang yang tetap memilih aku,
+            sama seperti aku akan terus memilih kamu. 🌎🪐
+          </p>
+
+          <span class="cosmic-highlight-heart">♡</span>
+        </aside>
+
+        <!-- CLOSING QUOTE -->
+        <footer class="cosmic-footer">
+          <span class="cosmic-footer-star">✦</span>
+
+          <p>
+            “You don't have to stop every storm
+            to be someone's safe place.”
+          </p>
+
+          <span class="cosmic-footer-note">
+            WRITTEN WITH LOVE - Chika
+          </span>
+        </footer>
+
+        <button
+          type="button"
+          class="jupiter-back"
+          data-go="beranda"
+        >
+          Back to our little universe ♡
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <svg class="icon-lily" aria-hidden="true"><use href="#lily"/></svg>
+    <p>Happy Anniversary, hari ini dan selamanya.</p>
+  </footer>
+
+  <!-- MODAL: tanggal -->
+  <dialog id="dateModal" class="modal">
+    <form method="dialog" class="modal-box" id="dateForm">
+      <h3>Atur tanggal jadian</h3>
+      <p class="muted">Penghitung akan mulai dari tanggal ini.</p>
+      <label class="field">
+        <span>Tanggal</span>
+        <input type="date" id="dateInput" required>
+      </label>
+      <div class="modal-actions">
+        <button class="link-btn" value="cancel" type="submit" formnovalidate>Batal</button>
+        <button class="btn btn-primary sm" id="dateSave" value="save" type="submit">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- MODAL: video -->
+  <dialog id="videoModal" class="modal">
+    <form method="dialog" class="modal-box" id="videoForm">
+      <h3>Atur video kenangan</h3>
+
+      <label class="field">
+        <span>Link YouTube</span>
+        <input type="text" id="ytInput" placeholder="https://www.youtube.com/watch?v=...">
+      </label>
+
+      <p class="or">atau</p>
+
+      <label class="field">
+        <span>File video dari perangkat</span>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+      <p class="muted tiny">File yang dipilih hanya aktif selama halaman terbuka. Agar permanen, taruh video di <code>assets/video.mp4</code> lalu isi <code>videoSrc</code> di <code>script.js</code>.</p>
+
+      <p class="error" id="videoError" role="alert" hidden></p>
+
+      <div class="modal-actions">
+        <button class="link-btn" value="cancel" type="submit" formnovalidate>Batal</button>
+        <button class="btn btn-primary sm" id="videoApply" value="apply" type="submit">Terapkan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- MODAL: kejutan -->
+  <dialog id="surpriseModal" class="modal">
+    <form method="dialog" class="modal-box center">
+      <svg class="modal-lily" aria-hidden="true"><use href="#lily"/></svg>
+      <h3 class="script-title sm">Jawabanmu</h3>
+      <p id="surpriseText"></p>
+      <div class="modal-actions center">
+        <button class="btn btn-primary sm" type="submit">Tutup</button>
+      </div>
+    </form>
+  </dialog>
+
+  
+<!-- MODAL: surat Polaroid -->
+<dialog id="polaroidLetterModal" class="modal">
+  <div class="modal-box">
+    <div class="polaroid-letter-header">
+      <span class="polaroid-letter-icon">♡</span>
+      <h3 id="polaroidLetterTitle">A Little Letter for You</h3>
+      <p class="polaroid-letter-subtitle">a little piece of my heart</p>
+    </div>
+
+    <div id="polaroidLetterText" class="polaroid-letter-text"></div>
+
+    <div class="modal-actions center">
+      <button
+        class="btn btn-primary sm"
+        type="button"
+        id="closePolaroidLetter"
+      >
+        Close with love ♡
+      </button>
+    </div>
+  </div>
+</dialog>
+
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <audio id="bgMusic" loop preload="none"></audio>
+  <input type="file" id="musicFile" accept="audio/*" hidden>
+
+  <script src="script.js"></script>
+</body>
+</html>
